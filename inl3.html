@@ -1,10 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Kassa</title>
+  </head>
   <body>
-    <p>Tryck på knappen.</p>
-    <p id="knapp1">
-      <button onclick="trycka()">Knappen!</button>
+    <p>Summa på kontot: <span id="text1"></span> kr</p>
+    <p><input type="number" id="inut" value="0" min="0" /></p>
+    <p>
+      <button onclick="addera()">IN</button>
+      <button onclick="minska()">UT</button>
     </p>
-  
+    <p id="theStar"></p>
   </body>
 </html>
+
+<script>
+  "use strict";
+
+  let kassa = 0;
+  document.getElementById("text1").textContent = kassa;
+
+  function addera() {
+    inmatningKontroll();
+    kassa += parseInt(document.getElementById("inut").value);
+    document.getElementById("text1").textContent = kassa;
+    delbartMedTio();
+  }
+
+  function minska() {
+    inmatningKontroll();
+    kassa -= parseInt(document.getElementById("inut").value);
+    if (kassa <= 0) {
+      kassa = 0;
+    }
+    document.getElementById("text1").textContent = kassa;
+    delbartMedTio();
+  }
+
+  function delbartMedTio() {
+    if (kassa % 10 == 0 && kassa != 0) {
+      document.getElementById("theStar").textContent = "*";
+    } else {
+      document.getElementById("theStar").textContent = " ";
+    }
+  }
+
+  function inmatningKontroll() {
+    let inmatning = parseInt(document.getElementById("inut").value);
+    if (inmatning <= 0 || isNaN(inmatning)) {
+      document.getElementById("inut").value = 0;
+    }
+  }
+</script>
